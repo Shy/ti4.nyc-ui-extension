@@ -15,22 +15,29 @@
     .player {
         padding-bottom: 1px;
     }
+
+    .icon{
+        width: 18px;
+        height: 18px;
+        display: inline-block;
+    }
     </style>
 </head>
 
 <body>
     <div id="content">
         <div class="player">
-            <div class="cf-form-field" style="display:inline-block;">
-                <label>Player 1</label>
+            <img class="icon" id="player1Icon" src="/icons/arborec.png">
+            <div class="cf-form-field inline">
+                <label>Players</label>
                 <input type="text" value="Player 1 Name" class="cf-form-input inline" id="player1Name">
             </div>
             <div class="cf-form-field inline">
-                <label>Point Total</label>
+                <label>Points</label>
                 <input type="integer" value="1" class="cf-form-input inline" id="player1Score">
             </div>
             <div class="cf-form-field inline">
-                <label>Faction</label>
+                <label>Factions</label>
                 <select class="cf-form-input" id="player1Faction">
                     <option value="Arborec" selected>The Arborec</option>
                     <option value="Barony">The Barony of Letnev</option>
@@ -53,16 +60,14 @@
             </div>
         </div>
         <div class="player">
-            <div class="cf-form-field" style="display:inline-block;">
-                <label>Player 2</label>
+            <img class="icon" id="player2Icon" src="/icons/saar.png">
+            <div class="cf-form-field inline">
                 <input type="text" value="Player 2 Name" class="cf-form-input inline" id="player2Name">
             </div>
             <div class="cf-form-field inline">
-                <label>Point Total</label>
                 <input type="integer" value="2" class="cf-form-input inline" id="player2Score">
             </div>
             <div class="cf-form-field inline">
-                <label>Faction</label>
                 <select class="cf-form-input" id="player2Faction">
                     <option value="Arborec">The Arborec</option>
                     <option value="Barony">The Barony of Letnev</option>
@@ -85,16 +90,14 @@
             </div>
         </div>
         <div class="player">
-            <div class="cf-form-field" style="display:inline-block;">
-                <label>Player 3</label>
+            <img class="icon" id="player3Icon" src="/icons/hacan.png">
+            <div class="cf-form-field inline">
                 <input type="text" value="Player 3 Name" class="cf-form-input inline" id="player3Name">
             </div>
             <div class="cf-form-field inline">
-                <label>Point Total</label>
                 <input type="integer" value="3" class="cf-form-input inline" id="player3Score">
             </div>
             <div class="cf-form-field inline">
-                <label>Faction</label>
                 <select class="cf-form-input" id="player3Faction">
                     <option value="Arborec">The Arborec</option>
                     <option value="Barony">The Barony of Letnev</option>
@@ -117,16 +120,14 @@
             </div>
         </div>
         <div class="player">
-            <div class="cf-form-field" style="display:inline-block;">
-                <label>Player 4</label>
+            <img class="icon" id="player4Icon" src="/icons/sol.png">
+            <div class="cf-form-field inline">
                 <input type="text" value="Player 4 Name" class="cf-form-input inline" id="player4Name">
             </div>
             <div class="cf-form-field inline">
-                <label>Point Total</label>
                 <input type="integer" value="4" class="cf-form-input inline" id="player4Score">
             </div>
             <div class="cf-form-field inline">
-                <label>Faction</label>
                 <select class="cf-form-input" id="player4Faction">
                     <option value="Arborec">The Arborec</option>
                     <option value="Barony">The Barony of Letnev</option>
@@ -149,16 +150,14 @@
             </div>
         </div>
         <div class="player">
-            <div class="cf-form-field" style="display:inline-block;">
-                <label>Player 5</label>
+            <img class="icon" id="player5Icon" src="/icons/ghosts.png">
+            <div class="cf-form-field inline">
                 <input type="text" value="Player 5 Name" class="cf-form-input inline" id="player5Name">
             </div>
             <div class="cf-form-field inline">
-                <label>Point Total</label>
                 <input type="integer" value="5" class="cf-form-input inline" id="player5Score">
             </div>
             <div class="cf-form-field inline">
-                <label>Faction</label>
                 <select class="cf-form-input" id="player5Faction">
                     <option value="Arborec">The Arborec</option>
                     <option value="Barony">The Barony of Letnev</option>
@@ -181,16 +180,14 @@
             </div>
         </div>
         <div class="player">
-            <div class="cf-form-field" style="display:inline-block;">
-                <label>Player 6</label>
+            <img class="icon" id="player6Icon" src="/icons/nekro.png">
+            <div class="cf-form-field inline">
                 <input type="text" value="Player 6 Name" class="cf-form-input inline" id="player6Name">
             </div>
             <div class="cf-form-field inline">
-                <label>Point Total</label>
                 <input type="integer" value="6" class="cf-form-input inline" id="player6Score">
             </div>
             <div class="cf-form-field inline">
-                <label>Faction</label>
                 <select class="cf-form-input" id="player6Faction">
                     <option value="Arborec">The Arborec</option>
                     <option value="Barony">The Barony of Letnev</option>
@@ -220,19 +217,22 @@
         setGameFields(value);
 
         $(".cf-form-input").on('input', function(event) {
-            extension.field.setValue(getGameJSON());
+            extension.field.setValue(getGameData());
         });
+
+
 
         function setGameFields(data) {
             for (i = 0; i < 6; i++) {
                 document.getElementById(['player', i + 1, 'Name'].join('')).value = data['Players'][i]['Name'];
                 document.getElementById(['player', i + 1, 'Score'].join('')).value = data['Players'][i]['Score'];
                 $(['#', 'player', i + 1, 'Faction'].join('')).val(data['Players'][i]['Faction']).prop('selected', true);
+                document.getElementById(['player', i + 1, 'Icon'].join('')).src = ["/icons/", data['Players'][i]['Faction'].toLowerCase() ,".png"];
             }
 
         }
 
-        function getGameJSON() {
+        function getGameData() {
             var data = {};
             data['Players'] = [];
             var innerData = {};
@@ -248,12 +248,22 @@
                         break;
                     case 2:
                         innerData['Faction'] = document.getElementsByClassName('cf-form-input')[i].value;
+                        document.getElementById(['player', i + 1, 'Icon'].join('')).src = ["/icons/", document.getElementsByClassName('cf-form-input')[i].value.toLowerCase(), ".png"];
                         data['Players'].push(innerData);
                         break;
                 }
             }
             return (data);
         }
+
+
+        extension.field.onValueChanged(function (data) {
+            if (getGameData != data){
+                setGameFields(data);
+            }
+        })
+
+        extension.window.updateHeight()
 
     })
     </script>
