@@ -1,0 +1,6 @@
+{
+  "id": "ti4MatchLog",
+  "name": "Twilight Imperium 4th Edition Match Log",
+  "srcdoc": "./index.html",
+  "fieldTypes": ["Object"]
+}
