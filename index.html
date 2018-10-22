@@ -205,59 +205,66 @@
         </div>
     </div>
     <script type="text/javascript">
-    window.contentfulExtension.init(function(extension) {
+        window.contentfulExtension.init(function(extension) {
 
-        var value = extension.field.getValue();
-        setGameFields(value);
-        extension.window.updateHeight()
-        $(".cf-form-input").on('input', function(event) {
-            extension.field.setValue(getGameData());
-        });
+            var value = extension.field.getValue();
 
-
-
-        function setGameFields(data) {
-            for (i = 0; i < 6; i++) {
-                document.getElementById(['player', i + 1, 'Name'].join('')).value = data['Players'][i]['Name'];
-                document.getElementById(['player', i + 1, 'Score'].join('')).value = data['Players'][i]['Score'];
-                $(['#', 'player', i + 1, 'Faction'].join('')).val(data['Players'][i]['Faction']).prop('selected', true);
+            if (typeof value != "undefined") {
+                setGameFields(value);
             }
 
-        }
+            extension.window.startAutoResizer();
 
-        function getGameData() {
-            var data = {};
-            data['Players'] = [];
-            var innerData = {};
-            var i = 0;
-            for (; i < document.getElementsByClassName('cf-form-input').length; i++) {
-                switch (i % 3) {
-                    case 0:
-                        innerData = {};
-                        innerData['Name'] = document.getElementsByClassName('cf-form-input')[i].value;
-                        break;
-                    case 1:
-                        innerData['Score'] = document.getElementsByClassName('cf-form-input')[i].value;
-                        break;
-                    case 2:
-                        innerData['Faction'] = document.getElementsByClassName('cf-form-input')[i].value;
-                        data['Players'].push(innerData);
-                        break;
+            $(".cf-form-input").on("input", function() {
+                extension.field.setValue(getGameData());
+            });
+
+            function setGameFields(data) {
+                var i = 0;
+                for (i = 0; i < 6; i += 1) {
+                    document.getElementById(["player", i + 1, "Name"].join("")).value =
+                        data["Players"][i]["Name"];
+                    document.getElementById(["player", i + 1, "Score"].join("")).value =
+                        data["Players"][i]["Score"];
+                    $(["#", "player", i + 1, "Faction"].join("")).val(data["Players"]
+                        [i]["Faction"]).prop("selected", true);
                 }
+
             }
-            return (data);
-        }
 
-
-        extension.field.onValueChanged(function (data) {
-            if (getGameData != data){
-                setGameFields(data);
+            function getGameData() {
+                var data = {};
+                data["Players"] = [];
+                var innerData = {};
+                var i = 0;
+                for (; i < document.getElementsByClassName("cf-form-input").length; i +=
+                    1) {
+                    switch (i % 3) {
+                        case 0:
+                            innerData = {};
+                            innerData["Name"] = document.getElementsByClassName(
+                                "cf-form-input")[i].value;
+                            break;
+                        case 1:
+                            innerData["Score"] = document.getElementsByClassName(
+                                "cf-form-input")[i].value;
+                            break;
+                        case 2:
+                            innerData["Faction"] = document.getElementsByClassName(
+                                "cf-form-input")[i].value;
+                            data["Players"].push(innerData);
+                            break;
+                    }
+                }
+                return (data);
             }
-        })
 
-        extension.window.updateHeight()
-
-    })
+            extension.field.onValueChanged(function(data) {
+                if (getGameData() !== data) {
+                    setGameFields(data);
+                }
+            });
+        });
     </script>
 </body>
 
