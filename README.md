@@ -17,8 +17,3 @@ You can install this extension into your Contentful space via the [Contentful Co
 To enable the extension go to a content type of your choice and add a new field of type `JSON`. In the appearance panel you can then find the `Twilight Imperium 4th Edition Match Log`.
 
 ![The appearance panel of a field in a content type](./images/appearance.png)
-
-
-## There is one big gotcha – Use at own risk!
-
-Due to the security setting of Contentful and the way UI-extensions work all requests are piped through http://cors-anywhere.herokuapp.com. This is needed because most of the URLs you'll link to won't include CORS headers which means that requests made by the extension would be blocked.
